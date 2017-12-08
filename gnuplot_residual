@@ -1,0 +1,26 @@
+#!/bin/bash
+
+gnuplot -persist > /dev/null 2>&1 <<EOF
+	set title"Residual vs Time"
+	set xlabel "Time"
+	set ylabel "Residual"
+	set xtics 0.02
+	set logscale y
+	set multiplot
+	set origin 0.0,0.5
+	set size 0.5,0.5
+	plot "residuals" using 1:2  with lines title 'Ux', \
+	     "residuals" using 1:3  with lines title 'Uy', \
+	     "residuals" using 1:4  with lines title 'Uz'
+	set origin 0.5,0.5
+	set size 0.5,0.5
+	plot "residuals" using 1:5  with lines title 'p_1', \
+	     "residuals" using 1:6  with lines title 'p_2'
+	set origin 0.0,0.0
+	set size 0.5,0.5
+	plot "residuals" using 1:7  with lines title 'k', \
+	     "residuals" using 1:8  with lines title 'epsilon'
+	set origin 0.5,0.0
+	set size 0.5,0.5
+	plot "residuals" using 1:9  with lines title 'Co'
+EOF
